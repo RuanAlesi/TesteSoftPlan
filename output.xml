@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.8.3 on win32)" generated="20200917 22:05:51.562" rpa="false">
+<suite id="s1" name="Desafio1" source="C:\QA\Projects\SuperHeroAPI\Desafio1.robot">
+<test id="s1-t1" name="Teste 01: Consultar a ficha de um super herói">
+<kw name="Dado que esteja conectado na SuperHeroAPI" library="MyKeywords">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20200917 22:05:51.746" level="INFO">Creating Session using : alias=sessao, url=http://superheroapi.com/api/4385634404811012, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200917 22:05:51.746" endtime="20200917 22:05:51.746"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:51.740" endtime="20200917 22:05:51.746"></status>
+</kw>
+<kw name="Quando requisitar o histórico do super herói &quot;Green Arrow&quot;" library="MyKeywords">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/search/${nome_heroi}</arg>
+</arguments>
+<assign>
+<var>${pesquisa_id}</var>
+</assign>
+<msg timestamp="20200917 22:05:53.948" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/search/Green%20Arrow (redirected) 
+ path_url=/api/4385634404811012/search/Green%20Arrow 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:05:53.948" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/search/Green%20Arrow 
+ status=200, reason=OK 
+ body={"response":"success","results-for":"Green Arrow","results":[{"id":"298","name":"Green Arrow","powerstats":{"intelligence":"81","strength":"12","speed":"35","durability":"28","power":"39","combat":"90"},"biography":{"full-name":"Oliver Queen","alter-egos":"No alter egos found.","aliases":["The Emerald Archer","Battling Bowman"],"place-of-birth":"-","first-appearance":"More Fun Comics #73 (November 1941)","publisher":"DC Comics","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["6'2","188 cm"],"weight":["195 lb","88 kg"],"eye-color":"Green","hair-color":"Blond"},"work":{"occupation":"Professional Crime-fighter; Multi-Billionaire","base":"Star City, California; Formerly Seattle, Washington"},"connections":{"group-affiliation":"Justice League Reserve, Connor Hawke, Mia Dearden,  Arsenal, Green Arrows of the World, Black Canary, Green Lantern Hal Jordan, Shado, Eddie Fyers, Justice League Elite, Seven Soldiers of Victory, All-Star Squadron","relatives":"Conner Hawke (son); Robert (son); Cissie King (possible daughter); Roy Harper - Red Arrow (adoptive son); Dinah Laurel Lance (wife); Dinah Drake Lance (mother-in-law, deceased); Larry Lance (father-in-law, deceased)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/696.jpg"}}]} 
+ </msg>
+<msg timestamp="20200917 22:05:53.948" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:05:53.948" level="INFO">${pesquisa_id} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:51.746" endtime="20200917 22:05:53.948"></status>
+</kw>
+<kw name="Pesquisa heroID" library="MyKeywords">
+<arguments>
+<arg>${pesquisa_id}</arg>
+<arg>${nome_heroi}</arg>
+</arguments>
+<assign>
+<var>${id}</var>
+</assign>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${pesquisa.json()['results']['name'=='${nome_heroi}']}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>${teste}</var>
+</assign>
+<msg timestamp="20200917 22:05:53.948" level="INFO">${teste} = 298</msg>
+<status status="PASS" starttime="20200917 22:05:53.948" endtime="20200917 22:05:53.948"></status>
+</kw>
+<msg timestamp="20200917 22:05:53.948" level="INFO">${id} = 298</msg>
+<status status="PASS" starttime="20200917 22:05:53.948" endtime="20200917 22:05:53.948"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/${id}</arg>
+</arguments>
+<assign>
+<var>${resposta}</var>
+</assign>
+<msg timestamp="20200917 22:05:55.460" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/298 (redirected) 
+ path_url=/api/4385634404811012/298 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Cookie': '__cfduid=d4fb644a7f3b66fe1209f3502ccc711621600391149'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:05:55.461" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/298 
+ status=200, reason=OK 
+ body={"response":"success","id":"298","name":"Green Arrow","powerstats":{"intelligence":"81","strength":"12","speed":"35","durability":"28","power":"39","combat":"90"},"biography":{"full-name":"Oliver Queen","alter-egos":"No alter egos found.","aliases":["The Emerald Archer","Battling Bowman"],"place-of-birth":"-","first-appearance":"More Fun Comics #73 (November 1941)","publisher":"DC Comics","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["6'2","188 cm"],"weight":["195 lb","88 kg"],"eye-color":"Green","hair-color":"Blond"},"work":{"occupation":"Professional Crime-fighter; Multi-Billionaire","base":"Star City, California; Formerly Seattle, Washington"},"connections":{"group-affiliation":"Justice League Reserve, Connor Hawke, Mia Dearden,  Arsenal, Green Arrows of the World, Black Canary, Green Lantern Hal Jordan, Shado, Eddie Fyers, Justice League Elite, Seven Soldiers of Victory, All-Star Squadron","relatives":"Conner Hawke (son); Robert (son); Cissie King (possible daughter); Roy Harper - Red Arrow (adoptive son); Dinah Laurel Lance (wife); Dinah Drake Lance (mother-in-law, deceased); Larry Lance (father-in-law, deceased)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/696.jpg"}} 
+ </msg>
+<msg timestamp="20200917 22:05:55.461" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:05:55.467" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:53.948" endtime="20200917 22:05:55.467"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${resposta}</arg>
+</arguments>
+<msg timestamp="20200917 22:05:55.469" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:55.468" endtime="20200917 22:05:55.469"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:51.746" endtime="20200917 22:05:55.470"></status>
+</kw>
+<kw name="Então deve ser retornado que a sua inteligência é superior a &quot;80&quot;" library="MyKeywords">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resposta.json()}</arg>
+</arguments>
+<msg timestamp="20200917 22:05:55.475" level="INFO">{'response': 'success', 'id': '298', 'name': 'Green Arrow', 'powerstats': {'intelligence': '81', 'strength': '12', 'speed': '35', 'durability': '28', 'power': '39', 'combat': '90'}, 'biography': {'full-name': 'Oliver Queen', 'alter-egos': 'No alter egos found.', 'aliases': ['The Emerald Archer', 'Battling Bowman'], 'place-of-birth': '-', 'first-appearance': 'More Fun Comics #73 (November 1941)', 'publisher': 'DC Comics', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["6'2", '188 cm'], 'weight': ['195 lb', '88 kg'], 'eye-color': 'Green', 'hair-color': 'Blond'}, 'work': {'occupation': 'Professional Crime-fighter; Multi-Billionaire', 'base': 'Star City, California; Formerly Seattle, Washington'}, 'connections': {'group-affiliation': 'Justice League Reserve, Connor Hawke, Mia Dearden,  Arsenal, Green Arrows of the World, Black Canary, Green Lantern Hal Jordan, Shado, Eddie Fyers, Justice League Elite, Seven Soldiers of Victory, All-Star Squadron', 'relatives': 'Conner Hawke (son); Robert (son); Cissie King (possible daughter); Roy Harper - Red Arrow (adoptive son); Dinah Laurel Lance (wife); Dinah Drake Lance (mother-in-law, deceased); Larry Lance (father-in-law, deceased)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/696.jpg'}}</msg>
+<status status="PASS" starttime="20200917 22:05:55.473" endtime="20200917 22:05:55.476"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resposta.json()['powerstats']}</arg>
+<arg>intelligence</arg>
+</arguments>
+<assign>
+<var>${pwrstt_intelligence}</var>
+</assign>
+<msg timestamp="20200917 22:05:55.478" level="INFO">${pwrstt_intelligence} = 81</msg>
+<status status="PASS" starttime="20200917 22:05:55.476" endtime="20200917 22:05:55.478"></status>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<doc>Converts the given item to a floating point number.</doc>
+<arguments>
+<arg>${pwrstt_intelligence}</arg>
+</arguments>
+<status status="PASS" starttime="20200917 22:05:55.478" endtime="20200917 22:05:55.479"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${pwrstt_intelligence} &gt; ${inteligencia}</arg>
+</arguments>
+<status status="PASS" starttime="20200917 22:05:55.479" endtime="20200917 22:05:55.480"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:55.472" endtime="20200917 22:05:55.480"></status>
+</kw>
+<kw name="E deve ser retornado que o seu verdadeiro nome é ser &quot;Oliver Queen&quot;" library="MyKeywords">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resposta.json()['biography']}</arg>
+<arg>full-name</arg>
+</arguments>
+<assign>
+<var>${bio_name}</var>
+</assign>
+<msg timestamp="20200917 22:05:55.484" level="INFO">${bio_name} = Oliver Queen</msg>
+<status status="PASS" starttime="20200917 22:05:55.483" endtime="20200917 22:05:55.484"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${bio_name}</arg>
+<arg>${nome}</arg>
+</arguments>
+<status status="PASS" starttime="20200917 22:05:55.484" endtime="20200917 22:05:55.485"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:55.482" endtime="20200917 22:05:55.485"></status>
+</kw>
+<kw name="E deve ser retornado que é afiliado do grupo &quot;Justice League Elite&quot;" library="MyKeywords">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${resposta.json()['connections']}</arg>
+<arg>group-affiliation</arg>
+</arguments>
+<assign>
+<var>${conn_group}</var>
+</assign>
+<msg timestamp="20200917 22:05:55.488" level="INFO">${conn_group} = Justice League Reserve, Connor Hawke, Mia Dearden,  Arsenal, Green Arrows of the World, Black Canary, Green Lantern Hal Jordan, Shado, Eddie Fyers, Justice League Elite, Seven Soldiers of Victory, All...</msg>
+<status status="PASS" starttime="20200917 22:05:55.487" endtime="20200917 22:05:55.488"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>"""${grupo}""" in """${conn_group}"""</arg>
+</arguments>
+<status status="PASS" starttime="20200917 22:05:55.488" endtime="20200917 22:05:55.489"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:55.486" endtime="20200917 22:05:55.489"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:51.740" endtime="20200917 22:05:55.490" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Cenário 02: Consultar qual o super herói mais inteligente, rápido e forte (/id/powerstats)">
+<kw name="Dado que esteja conectado na SuperHeroAPI" library="MyKeywords">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20200917 22:05:55.495" level="INFO">Creating Session using : alias=sessao, url=http://superheroapi.com/api/4385634404811012, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200917 22:05:55.495" endtime="20200917 22:05:55.495"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:55.495" endtime="20200917 22:05:55.495"></status>
+</kw>
+<kw name="Quando requisitar as estatísticas de poder dos super heróis &quot;Flash&quot; e &quot;Ant-Man&quot;" library="MyKeywords">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/search/${nome_heroi_1}</arg>
+</arguments>
+<assign>
+<var>${req_heroi_1}</var>
+</assign>
+<msg timestamp="20200917 22:05:57.304" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/search/Flash (redirected) 
+ path_url=/api/4385634404811012/search/Flash 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:05:57.305" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/search/Flash 
+ status=200, reason=OK 
+ body={"response":"success","results-for":"Flash","results":[{"id":"100","name":"Black Flash","powerstats":{"intelligence":"44","strength":"10","speed":"100","durability":"80","power":"100","combat":"30"},"biography":{"full-name":"","alter-egos":"No alter egos found.","aliases":["Barry Allen","Flashback","Slow Lightning","Black Racer","Death Flash","God of Death"],"place-of-birth":"-","first-appearance":"Flash Vol 2 #138","publisher":"DC Comics","alignment":"neutral"},"appearance":{"gender":"Male","race":"God \/ Eternal","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"-","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/10831.jpg"}},{"id":"263","name":"Flash","powerstats":{"intelligence":"63","strength":"10","speed":"100","durability":"50","power":"68","combat":"32"},"biography":{"full-name":"Jay Garrick","alter-egos":"No alter egos found.","aliases":["Jay Garrick","Siegfreid the Speedster"],"place-of-birth":"Hibbardsville, Kansas","first-appearance":"Flash Comics #1 (January 1940)","publisher":"DC Comics","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["5'11","180 cm"],"weight":["179 lb","81 kg"],"eye-color":"Blue","hair-color":"Brown \/ White"},"work":{"occupation":"Research Scientist, part-time Director of Garrick Laboratories","base":"Keystone City, Kansas"},"connections":{"group-affiliation":"Justice Society of America, Flash Family; formerly All-Star Squadron","relatives":"Joseph Garrick (father), Joan Williams (wife), Arthur Williams (father-in-law), unnamed adopted son (deceased), Bart Allen (Flash II, ward)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/891.jpg"}},{"id":"264","name":"Flash Gordon","powerstats":{"intelligence":"null","strength":"69","speed":"null","durability":"null","power":"null","combat":"null"},"biography":{"full-name":"Steven Gordon","alter-egos":"No alter egos found.","aliases":["-"],"place-of-birth":"-","first-appearance":"Flash Gordon #1 (september 1966)","publisher":"null","alignment":"good"},"appearance":{"gender":"Male","race":"null","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"-","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/1345.jpg"}},{"id":"265","name":"Flash II","powerstats":{"intelligence":"88","strength":"48","speed":"100","durability":"60","power":"100","combat":"60"},"biography":{"full-name":"Barry Allen","alter-egos":"Black Racer","aliases":["The Scarlet Speedster","the Fastest Man Alive","the Monarch of Motion","the Sultan of Speed"],"place-of-birth":"Fallville, Iowa","first-appearance":"Showcase #4 (October, 1956)","publisher":"Black Racer","alignment":"good"},"appearance":{"gender":"Male","race":"Black Racer","height":["6'0","183 cm"],"weight":["195 lb","88 kg"],"eye-color":"Blue","hair-color":"Blond"},"work":{"occupation":"Forensic Scientist","base":"Central City, Missouri"},"connections":{"group-affiliation":"Flash Family, Justice League of America; formerly Blue Lantern Corps","relatives":"Henry and Nora (parents), Malcolm Thawne (twin), Iris West Allen (wife), Wally West (Flash III, nephew), Don and Dawn Allen (son and daughter), Bart Allen (Flash IV, grandson), Jenni Ognats (granddaughter)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/892.jpg"}},{"id":"266","name":"Flash III","powerstats":{"intelligence":"63","strength":"10","speed":"100","durability":"60","power":"100","combat":"32"},"biography":{"full-name":"Wally West","alter-egos":"Speed Demon","aliases":["The Fastest Man Alive","The Scarlet Speedster; formerly","Kid Flash I"],"place-of-birth":"Blue Valley, Nebraska","first-appearance":"Flash #110 (January, 1960)","publisher":"Speed Demon","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["6'0","183 cm"],"weight":["190 lb","86 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"Adventurer, Mechanic for the KCPD","base":"Keystone City, Kansas"},"connections":{"group-affiliation":"Flash Family, Justice League of America, Titans; formerly Teen Titans","relatives":"Rudolph and Mary West (parents), Ira West (grandfather), Iris Allen (aunt), Barry Allen (Flash II, uncle), Linda Park West (wife), Jai and Iris West (twin children)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/690.jpg"}},{"id":"267","name":"Flash IV","powerstats":{"intelligence":"63","strength":"10","speed":"100","durability":"32","power":"100","combat":"48"},"biography":{"full-name":"Bartholomew Allen II","alter-egos":"Impulse, Kid Flash II","aliases":["Impulse","Kid Flash II"],"place-of-birth":"-","first-appearance":"(as Impulse) Flash v.2 #91 (June 1994)* (as Kid Flash) Teen Titans v.3 #4 (December 2003)","publisher":"Impulse","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["5'2","157 cm"],"weight":["115 lb","52 kg"],"eye-color":"Yellow","hair-color":"Auburn"},"work":{"occupation":"Police trainee","base":"Los Angeles, California (previously Manchester, Alabama, briefly Denver, Colorado, then Keystone City, Kansas)"},"connections":{"group-affiliation":"Flash Family, Teen Titans, Legion of Super-Heroes; formerly Young Justice","relatives":"Barry Allen (Flash II, grandfather), Iris West Allen (grandmother), Don Allen (father), Meloni Thawne (mother), President Thawne (grandfather), Dawn Allen (aunt), Jenni Ognats (cousin), Thaddeus Thawne (clone), Owen Mercer (half-brother), Max Crandall (guardian)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/893.jpg"}},{"id":"384","name":"Kid Flash","powerstats":{"intelligence":"25","strength":"4","speed":"92","durability":"42","power":"20","combat":"30"},"biography":{"full-name":"Wallace Rudolph West","alter-egos":"No alter egos found.","aliases":["Kid Lantern"],"place-of-birth":"Blue Valley, Nebraska","first-appearance":"Flash #110 (January, 1960)","publisher":"DC Comics","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"Green","hair-color":"Red"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"Flash Family, Teen Titans, New Teen Titans","relatives":"Rudolph and Mary West (parents), Ira West (grandfather), Iris Allen (aunt), Barry Allen (uncle), Linda Park West (wife), Jai and Iris West (twin children)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/722.jpg"}},{"id":"385","name":"Kid Flash II","powerstats":{"intelligence":"null","strength":"47","speed":"null","durability":"null","power":"null","combat":"null"},"biography":{"full-name":"Bartholomew Allen II","alter-egos":"Flash IV, Impulse","aliases":["-"],"place-of-birth":"-","first-appearance":"-","publisher":"Flash IV","alignment":"good"},"appearance":{"gender":"Male","race":"null","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"-","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/894.jpg"}}]} 
+ </msg>
+<msg timestamp="20200917 22:05:57.306" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:05:57.311" level="INFO">${req_heroi_1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:55.496" endtime="20200917 22:05:57.311"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/search/${nome_heroi_2}</arg>
+</arguments>
+<assign>
+<var>${req_heroi_2}</var>
+</assign>
+<msg timestamp="20200917 22:05:58.815" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/search/Ant-Man (redirected) 
+ path_url=/api/4385634404811012/search/Ant-Man 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Cookie': '__cfduid=df13fc009fbba8668e0c22cc9c0edc3771600391153'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:05:58.815" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/search/Ant-Man 
+ status=200, reason=OK 
+ body={"response":"success","results-for":"Ant-Man","results":[{"id":"30","name":"Ant-Man","powerstats":{"intelligence":"100","strength":"18","speed":"23","durability":"28","power":"32","combat":"32"},"biography":{"full-name":"Hank Pym","alter-egos":"Giant-Man, Goliath, Wasp II, Yellowjacket","aliases":["Hank Pym","Doctor Pym","Ant-Man","Goliath","Yellowjacket","Wasp","Earth's Scientist Supreme"],"place-of-birth":"Elmsford, New York","first-appearance":"Tales to Astonish #27 (January, 1962) (as Hank Pym)  Tales to Astonish #35 (September, 1962) (as Ant-Man)","publisher":"Giant-Man","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["6'11","211 cm"],"weight":["270 lb","122 kg"],"eye-color":"Blue","hair-color":"Blond"},"work":{"occupation":"Adventurer, Biochemist, former manager of Avengers Compound","base":"Avengers Compound, Los Angeles; formerly Infinite Avengers Mansion; Captive aboard a Skrull ship; Avengers Mansion, New York City, New York"},"connections":{"group-affiliation":"Avengers Academy, Secret Avengers; formerly Mighty Avengers, Avengers (founding member), Defenders, Future Iron Man's Team","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/857.jpg"}},{"id":"31","name":"Ant-Man II","powerstats":{"intelligence":"75","strength":"18","speed":"17","durability":"40","power":"53","combat":"30"},"biography":{"full-name":"Scott Lang","alter-egos":"No alter egos found.","aliases":["Myrmidon","Scott Edward Harris Lang"],"place-of-birth":"Coral Gables, Florida","first-appearance":"Avengers Vol 1 #181 (March, 1979)","publisher":"Marvel Comics","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["6'0","183 cm"],"weight":["190 lb","86 kg"],"eye-color":"Blue","hair-color":"Blond"},"work":{"occupation":"Electronics Technician,","base":"South Beach, Miami, Florida; formerly Farmingdale, Long Island, New York"},"connections":{"group-affiliation":"Ant-Man Security Solutions; formerly Future Foundation (leader), Fantastic Four (leader), Defenders, Avengers, Heroes For Hire, Stark Industries","relatives":"Cassandra Eleanor Lang (daughter), Ruth (sister), Carl (brother-in-law), Peggy Rae (ex-wife)"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/166.jpg"}},{"id":"282","name":"Giant-Man","powerstats":{"intelligence":"null","strength":"78","speed":"null","durability":"null","power":"null","combat":"null"},"biography":{"full-name":"Hank Pym","alter-egos":"Ant-Man, Goliath, Wasp II, Yellowjacket","aliases":["-"],"place-of-birth":"-","first-appearance":"-","publisher":"Ant-Man","alignment":"good"},"appearance":{"gender":"Male","race":"Human","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"-","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/858.jpg"}},{"id":"283","name":"Giant-Man II","powerstats":{"intelligence":"null","strength":"null","speed":"null","durability":"null","power":"null","combat":"null"},"biography":{"full-name":"","alter-egos":"No alter egos found.","aliases":["-"],"place-of-birth":"-","first-appearance":"-","publisher":"Marvel Comics","alignment":"good"},"appearance":{"gender":"Male","race":"null","height":["-","0 cm"],"weight":["- lb","0 kg"],"eye-color":"-","hair-color":"-"},"work":{"occupation":"-","base":"-"},"connections":{"group-affiliation":"-","relatives":"-"},"image":{"url":"https:\/\/www.superherodb.com\/pictures2\/portraits\/10\/100\/343.jpg"}}]} 
+ </msg>
+<msg timestamp="20200917 22:05:58.815" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:05:58.815" level="INFO">${req_heroi_2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:57.311" endtime="20200917 22:05:58.815"></status>
+</kw>
+<kw name="Pesquisa heroID" library="MyKeywords">
+<arguments>
+<arg>${req_heroi_1}</arg>
+<arg>${nome_heroi_1}</arg>
+</arguments>
+<assign>
+<var>${id_heroi_1}</var>
+</assign>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${pesquisa.json()['results']['name'=='${nome_heroi}']}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>${teste}</var>
+</assign>
+<msg timestamp="20200917 22:05:58.815" level="INFO">${teste} = 100</msg>
+<status status="PASS" starttime="20200917 22:05:58.815" endtime="20200917 22:05:58.815"></status>
+</kw>
+<msg timestamp="20200917 22:05:58.815" level="INFO">${id_heroi_1} = 100</msg>
+<status status="PASS" starttime="20200917 22:05:58.815" endtime="20200917 22:05:58.815"></status>
+</kw>
+<kw name="Pesquisa heroID" library="MyKeywords">
+<arguments>
+<arg>${req_heroi_2}</arg>
+<arg>${nome_heroi_2}</arg>
+</arguments>
+<assign>
+<var>${id_heroi_2}</var>
+</assign>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${pesquisa.json()['results']['name'=='${nome_heroi}']}</arg>
+<arg>id</arg>
+</arguments>
+<assign>
+<var>${teste}</var>
+</assign>
+<msg timestamp="20200917 22:05:58.815" level="INFO">${teste} = 30</msg>
+<status status="PASS" starttime="20200917 22:05:58.815" endtime="20200917 22:05:58.815"></status>
+</kw>
+<msg timestamp="20200917 22:05:58.815" level="INFO">${id_heroi_2} = 30</msg>
+<status status="PASS" starttime="20200917 22:05:58.815" endtime="20200917 22:05:58.815"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/${id_heroi_1}/powerstats</arg>
+</arguments>
+<assign>
+<var>${pwrstt_hero_1}</var>
+</assign>
+<msg timestamp="20200917 22:06:00.134" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/100/powerstats (redirected) 
+ path_url=/api/4385634404811012/100/powerstats 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Cookie': '__cfduid=df13fc009fbba8668e0c22cc9c0edc3771600391153'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:06:00.134" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/100/powerstats 
+ status=200, reason=OK 
+ body={"response":"success","id":"100","name":"Black Flash","intelligence":"44","strength":"10","speed":"100","durability":"80","power":"100","combat":"30"} 
+ </msg>
+<msg timestamp="20200917 22:06:00.134" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:06:00.134" level="INFO">${pwrstt_hero_1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:05:58.815" endtime="20200917 22:06:00.134"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>sessao</arg>
+<arg>/${id_heroi_2}/powerstats</arg>
+</arguments>
+<assign>
+<var>${pwrstt_hero_2}</var>
+</assign>
+<msg timestamp="20200917 22:06:01.642" level="INFO">GET Request : url=http://superheroapi.com/api/4385634404811012/30/powerstats (redirected) 
+ path_url=/api/4385634404811012/30/powerstats 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Cookie': '__cfduid=df13fc009fbba8668e0c22cc9c0edc3771600391153'} 
+ body=None 
+ </msg>
+<msg timestamp="20200917 22:06:01.642" level="INFO">GET Response : url=https://www.superheroapi.com/api.php/4385634404811012/30/powerstats 
+ status=200, reason=OK 
+ body={"response":"success","id":"30","name":"Ant-Man","intelligence":"100","strength":"18","speed":"23","durability":"28","power":"32","combat":"32"} 
+ </msg>
+<msg timestamp="20200917 22:06:01.642" level="INFO">c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(
+c:\python\lib\site-packages\urllib3\connectionpool.py:979: InsecureRequestWarning: Unverified HTTPS request is being made to host 'www.superheroapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20200917 22:06:01.645" level="INFO">${pwrstt_hero_2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:06:00.134" endtime="20200917 22:06:01.645"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${pwrstt_hero_1}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.645" level="INFO">${pwrstt_hero_1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:06:01.645" endtime="20200917 22:06:01.645"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${pwrstt_hero_2}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.646" level="INFO">${pwrstt_hero_2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:06:01.645" endtime="20200917 22:06:01.646"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${req_heroi_1}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.646" level="INFO">${req_heroi_1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:06:01.646" endtime="20200917 22:06:01.646"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${req_heroi_2}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.647" level="INFO">${req_heroi_2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200917 22:06:01.647" endtime="20200917 22:06:01.647"></status>
+</kw>
+<status status="PASS" starttime="20200917 22:05:55.496" endtime="20200917 22:06:01.647"></status>
+</kw>
+<kw name="Então deve ser retornado que o mais inteligente é o herói &quot;Ant-Man&quot;" library="MyKeywords">
+<kw name="Heroi Campeão" library="MyKeywords">
+<arguments>
+<arg>${pwrstt_hero_1}</arg>
+<arg>${pwrstt_hero_2}</arg>
+<arg>intelligence</arg>
+</arguments>
+<assign>
+<var>${nome_heroi_campeao}</var>
+</assign>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${heroi1.json()}</arg>
+<arg>${criterio}</arg>
+</arguments>
+<assign>
+<var>${valor_heroi_1}</var>
+</assign>
+<msg timestamp="20200917 22:06:01.650" level="INFO">${valor_heroi_1} = 44</msg>
+<status status="PASS" starttime="20200917 22:06:01.649" endtime="20200917 22:06:01.650"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${heroi2.json()}</arg>
+<arg>${criterio}</arg>
+</arguments>
+<assign>
+<var>${valor_heroi_2}</var>
+</assign>
+<msg timestamp="20200917 22:06:01.650" level="INFO">${valor_heroi_2} = 100</msg>
+<status status="PASS" starttime="20200917 22:06:01.650" endtime="20200917 22:06:01.650"></status>
+</kw>
+<kw name="Get Nome do Heroi" library="MyKeywords">
+<arguments>
+<arg>${req_heroi_1}</arg>
+</arguments>
+<assign>
+<var>${nome_heroi_1}</var>
+</assign>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${req_heroi.json()}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.652" level="INFO">{'response': 'success', 'results-for': 'Flash', 'results': [{'id': '100', 'name': 'Black Flash', 'powerstats': {'intelligence': '44', 'strength': '10', 'speed': '100', 'durability': '80', 'power': '100', 'combat': '30'}, 'biography': {'full-name': '', 'alter-egos': 'No alter egos found.', 'aliases': ['Barry Allen', 'Flashback', 'Slow Lightning', 'Black Racer', 'Death Flash', 'God of Death'], 'place-of-birth': '-', 'first-appearance': 'Flash Vol 2 #138', 'publisher': 'DC Comics', 'alignment': 'neutral'}, 'appearance': {'gender': 'Male', 'race': 'God / Eternal', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': '-', 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/10831.jpg'}}, {'id': '263', 'name': 'Flash', 'powerstats': {'intelligence': '63', 'strength': '10', 'speed': '100', 'durability': '50', 'power': '68', 'combat': '32'}, 'biography': {'full-name': 'Jay Garrick', 'alter-egos': 'No alter egos found.', 'aliases': ['Jay Garrick', 'Siegfreid the Speedster'], 'place-of-birth': 'Hibbardsville, Kansas', 'first-appearance': 'Flash Comics #1 (January 1940)', 'publisher': 'DC Comics', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["5'11", '180 cm'], 'weight': ['179 lb', '81 kg'], 'eye-color': 'Blue', 'hair-color': 'Brown / White'}, 'work': {'occupation': 'Research Scientist, part-time Director of Garrick Laboratories', 'base': 'Keystone City, Kansas'}, 'connections': {'group-affiliation': 'Justice Society of America, Flash Family; formerly All-Star Squadron', 'relatives': 'Joseph Garrick (father), Joan Williams (wife), Arthur Williams (father-in-law), unnamed adopted son (deceased), Bart Allen (Flash II, ward)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/891.jpg'}}, {'id': '264', 'name': 'Flash Gordon', 'powerstats': {'intelligence': 'null', 'strength': '69', 'speed': 'null', 'durability': 'null', 'power': 'null', 'combat': 'null'}, 'biography': {'full-name': 'Steven Gordon', 'alter-egos': 'No alter egos found.', 'aliases': ['-'], 'place-of-birth': '-', 'first-appearance': 'Flash Gordon #1 (september 1966)', 'publisher': 'null', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'null', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': '-', 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/1345.jpg'}}, {'id': '265', 'name': 'Flash II', 'powerstats': {'intelligence': '88', 'strength': '48', 'speed': '100', 'durability': '60', 'power': '100', 'combat': '60'}, 'biography': {'full-name': 'Barry Allen', 'alter-egos': 'Black Racer', 'aliases': ['The Scarlet Speedster', 'the Fastest Man Alive', 'the Monarch of Motion', 'the Sultan of Speed'], 'place-of-birth': 'Fallville, Iowa', 'first-appearance': 'Showcase #4 (October, 1956)', 'publisher': 'Black Racer', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Black Racer', 'height': ["6'0", '183 cm'], 'weight': ['195 lb', '88 kg'], 'eye-color': 'Blue', 'hair-color': 'Blond'}, 'work': {'occupation': 'Forensic Scientist', 'base': 'Central City, Missouri'}, 'connections': {'group-affiliation': 'Flash Family, Justice League of America; formerly Blue Lantern Corps', 'relatives': 'Henry and Nora (parents), Malcolm Thawne (twin), Iris West Allen (wife), Wally West (Flash III, nephew), Don and Dawn Allen (son and daughter), Bart Allen (Flash IV, grandson), Jenni Ognats (granddaughter)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/892.jpg'}}, {'id': '266', 'name': 'Flash III', 'powerstats': {'intelligence': '63', 'strength': '10', 'speed': '100', 'durability': '60', 'power': '100', 'combat': '32'}, 'biography': {'full-name': 'Wally West', 'alter-egos': 'Speed Demon', 'aliases': ['The Fastest Man Alive', 'The Scarlet Speedster; formerly', 'Kid Flash I'], 'place-of-birth': 'Blue Valley, Nebraska', 'first-appearance': 'Flash #110 (January, 1960)', 'publisher': 'Speed Demon', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["6'0", '183 cm'], 'weight': ['190 lb', '86 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': 'Adventurer, Mechanic for the KCPD', 'base': 'Keystone City, Kansas'}, 'connections': {'group-affiliation': 'Flash Family, Justice League of America, Titans; formerly Teen Titans', 'relatives': 'Rudolph and Mary West (parents), Ira West (grandfather), Iris Allen (aunt), Barry Allen (Flash II, uncle), Linda Park West (wife), Jai and Iris West (twin children)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/690.jpg'}}, {'id': '267', 'name': 'Flash IV', 'powerstats': {'intelligence': '63', 'strength': '10', 'speed': '100', 'durability': '32', 'power': '100', 'combat': '48'}, 'biography': {'full-name': 'Bartholomew Allen II', 'alter-egos': 'Impulse, Kid Flash II', 'aliases': ['Impulse', 'Kid Flash II'], 'place-of-birth': '-', 'first-appearance': '(as Impulse) Flash v.2 #91 (June 1994)* (as Kid Flash) Teen Titans v.3 #4 (December 2003)', 'publisher': 'Impulse', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["5'2", '157 cm'], 'weight': ['115 lb', '52 kg'], 'eye-color': 'Yellow', 'hair-color': 'Auburn'}, 'work': {'occupation': 'Police trainee', 'base': 'Los Angeles, California (previously Manchester, Alabama, briefly Denver, Colorado, then Keystone City, Kansas)'}, 'connections': {'group-affiliation': 'Flash Family, Teen Titans, Legion of Super-Heroes; formerly Young Justice', 'relatives': 'Barry Allen (Flash II, grandfather), Iris West Allen (grandmother), Don Allen (father), Meloni Thawne (mother), President Thawne (grandfather), Dawn Allen (aunt), Jenni Ognats (cousin), Thaddeus Thawne (clone), Owen Mercer (half-brother), Max Crandall (guardian)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/893.jpg'}}, {'id': '384', 'name': 'Kid Flash', 'powerstats': {'intelligence': '25', 'strength': '4', 'speed': '92', 'durability': '42', 'power': '20', 'combat': '30'}, 'biography': {'full-name': 'Wallace Rudolph West', 'alter-egos': 'No alter egos found.', 'aliases': ['Kid Lantern'], 'place-of-birth': 'Blue Valley, Nebraska', 'first-appearance': 'Flash #110 (January, 1960)', 'publisher': 'DC Comics', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': 'Green', 'hair-color': 'Red'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': 'Flash Family, Teen Titans, New Teen Titans', 'relatives': 'Rudolph and Mary West (parents), Ira West (grandfather), Iris Allen (aunt), Barry Allen (uncle), Linda Park West (wife), Jai and Iris West (twin children)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/722.jpg'}}, {'id': '385', 'name': 'Kid Flash II', 'powerstats': {'intelligence': 'null', 'strength': '47', 'speed': 'null', 'durability': 'null', 'power': 'null', 'combat': 'null'}, 'biography': {'full-name': 'Bartholomew Allen II', 'alter-egos': 'Flash IV, Impulse', 'aliases': ['-'], 'place-of-birth': '-', 'first-appearance': '-', 'publisher': 'Flash IV', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'null', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': '-', 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/894.jpg'}}]}</msg>
+<status status="PASS" starttime="20200917 22:06:01.651" endtime="20200917 22:06:01.652"></status>
+</kw>
+<msg timestamp="20200917 22:06:01.652" level="INFO">${nome_heroi_1} = ['Get from Dictionary', {'response': 'success', 'results-for': 'Flash', 'results': [{'id': '100', 'name': 'Black Flash', 'powerstats': {'intelligence': '44', 'strength': '10', 'speed': '100', 'durabil...</msg>
+<status status="PASS" starttime="20200917 22:06:01.650" endtime="20200917 22:06:01.653"></status>
+</kw>
+<kw name="Get Nome do Heroi" library="MyKeywords">
+<arguments>
+<arg>${req_heroi_2}</arg>
+</arguments>
+<assign>
+<var>${nome_heroi_2}</var>
+</assign>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${req_heroi.json()}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.654" level="INFO">{'response': 'success', 'results-for': 'Ant-Man', 'results': [{'id': '30', 'name': 'Ant-Man', 'powerstats': {'intelligence': '100', 'strength': '18', 'speed': '23', 'durability': '28', 'power': '32', 'combat': '32'}, 'biography': {'full-name': 'Hank Pym', 'alter-egos': 'Giant-Man, Goliath, Wasp II, Yellowjacket', 'aliases': ['Hank Pym', 'Doctor Pym', 'Ant-Man', 'Goliath', 'Yellowjacket', 'Wasp', "Earth's Scientist Supreme"], 'place-of-birth': 'Elmsford, New York', 'first-appearance': 'Tales to Astonish #27 (January, 1962) (as Hank Pym)  Tales to Astonish #35 (September, 1962) (as Ant-Man)', 'publisher': 'Giant-Man', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["6'11", '211 cm'], 'weight': ['270 lb', '122 kg'], 'eye-color': 'Blue', 'hair-color': 'Blond'}, 'work': {'occupation': 'Adventurer, Biochemist, former manager of Avengers Compound', 'base': 'Avengers Compound, Los Angeles; formerly Infinite Avengers Mansion; Captive aboard a Skrull ship; Avengers Mansion, New York City, New York'}, 'connections': {'group-affiliation': "Avengers Academy, Secret Avengers; formerly Mighty Avengers, Avengers (founding member), Defenders, Future Iron Man's Team", 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/857.jpg'}}, {'id': '31', 'name': 'Ant-Man II', 'powerstats': {'intelligence': '75', 'strength': '18', 'speed': '17', 'durability': '40', 'power': '53', 'combat': '30'}, 'biography': {'full-name': 'Scott Lang', 'alter-egos': 'No alter egos found.', 'aliases': ['Myrmidon', 'Scott Edward Harris Lang'], 'place-of-birth': 'Coral Gables, Florida', 'first-appearance': 'Avengers Vol 1 #181 (March, 1979)', 'publisher': 'Marvel Comics', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ["6'0", '183 cm'], 'weight': ['190 lb', '86 kg'], 'eye-color': 'Blue', 'hair-color': 'Blond'}, 'work': {'occupation': 'Electronics Technician,', 'base': 'South Beach, Miami, Florida; formerly Farmingdale, Long Island, New York'}, 'connections': {'group-affiliation': 'Ant-Man Security Solutions; formerly Future Foundation (leader), Fantastic Four (leader), Defenders, Avengers, Heroes For Hire, Stark Industries', 'relatives': 'Cassandra Eleanor Lang (daughter), Ruth (sister), Carl (brother-in-law), Peggy Rae (ex-wife)'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/166.jpg'}}, {'id': '282', 'name': 'Giant-Man', 'powerstats': {'intelligence': 'null', 'strength': '78', 'speed': 'null', 'durability': 'null', 'power': 'null', 'combat': 'null'}, 'biography': {'full-name': 'Hank Pym', 'alter-egos': 'Ant-Man, Goliath, Wasp II, Yellowjacket', 'aliases': ['-'], 'place-of-birth': '-', 'first-appearance': '-', 'publisher': 'Ant-Man', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'Human', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': '-', 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/858.jpg'}}, {'id': '283', 'name': 'Giant-Man II', 'powerstats': {'intelligence': 'null', 'strength': 'null', 'speed': 'null', 'durability': 'null', 'power': 'null', 'combat': 'null'}, 'biography': {'full-name': '', 'alter-egos': 'No alter egos found.', 'aliases': ['-'], 'place-of-birth': '-', 'first-appearance': '-', 'publisher': 'Marvel Comics', 'alignment': 'good'}, 'appearance': {'gender': 'Male', 'race': 'null', 'height': ['-', '0 cm'], 'weight': ['- lb', '0 kg'], 'eye-color': '-', 'hair-color': '-'}, 'work': {'occupation': '-', 'base': '-'}, 'connections': {'group-affiliation': '-', 'relatives': '-'}, 'image': {'url': 'https://www.superherodb.com/pictures2/portraits/10/100/343.jpg'}}]}</msg>
+<status status="PASS" starttime="20200917 22:06:01.653" endtime="20200917 22:06:01.654"></status>
+</kw>
+<msg timestamp="20200917 22:06:01.654" level="INFO">${nome_heroi_2} = ['Get from Dictionary', {'response': 'success', 'results-for': 'Ant-Man', 'results': [{'id': '30', 'name': 'Ant-Man', 'powerstats': {'intelligence': '100', 'strength': '18', 'speed': '23', 'durability...</msg>
+<status status="PASS" starttime="20200917 22:06:01.653" endtime="20200917 22:06:01.654"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${valor_heroi_1} &gt; ${valor_heroi_2}</arg>
+<arg>${nome_heroi_1}</arg>
+<arg>else</arg>
+<arg>${nome_heroi_2}</arg>
+</arguments>
+<assign>
+<var>${nome_heroi_campeao}</var>
+</assign>
+<msg timestamp="20200917 22:06:01.655" level="INFO">${nome_heroi_campeao} = None</msg>
+<status status="PASS" starttime="20200917 22:06:01.654" endtime="20200917 22:06:01.655"></status>
+</kw>
+<msg timestamp="20200917 22:06:01.655" level="INFO">${nome_heroi_campeao} = None</msg>
+<status status="PASS" starttime="20200917 22:06:01.649" endtime="20200917 22:06:01.655"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${nome_heroi_campeao}</arg>
+<arg>${nome_heroi}</arg>
+</arguments>
+<msg timestamp="20200917 22:06:01.655" level="INFO">Argument types are:
+&lt;class 'NoneType'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20200917 22:06:01.655" level="FAIL">None != Ant-Man</msg>
+<status status="FAIL" starttime="20200917 22:06:01.655" endtime="20200917 22:06:01.655"></status>
+</kw>
+<status status="FAIL" starttime="20200917 22:06:01.648" endtime="20200917 22:06:01.656"></status>
+</kw>
+<status status="FAIL" starttime="20200917 22:05:55.494" endtime="20200917 22:06:01.657" critical="yes">None != Ant-Man</status>
+</test>
+<status status="FAIL" starttime="20200917 22:05:51.562" endtime="20200917 22:06:01.660"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1">Critical Tests</stat>
+<stat pass="1" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="1" id="s1" name="Desafio1">Desafio1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
