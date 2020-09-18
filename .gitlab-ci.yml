@@ -1,0 +1,8 @@
+before_script:
+  - apt-get install python3.8
+  - pip install robotframework
+  - pip install robotframework-requests
+
+run-test:
+  script:
+    robot Desafio.robot
