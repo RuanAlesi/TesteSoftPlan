@@ -18,3 +18,5 @@ Cenário 02: Consultar qual o super herói mais inteligente, rápido e forte (/i
     Então deve ser retornado que o mais inteligente é o herói "Ant-Man"
     E deve ser retornado que o mais rápido é o herói "Flash"
     E deve ser retornado que o mais forte é o herói "Ant-Man"
+
+#isso é um exemplo 1
